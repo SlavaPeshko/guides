@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   entry: {
@@ -12,7 +13,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: require.resolve('index.js'),
+        test: require.resolve('./src/index.js'),
         use: 'imports-loader?this=>window'
       }
     ]
