@@ -1,19 +1,25 @@
-var path = require('path');
+const path = require('path');
 
 module.exports = {
-  entry: './src/index.js',
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: 'webpack-numbers.js',
-    library: 'webpackNumbers',
-    libraryTarget: 'umd'
+  entry: {
+    polyfills: './src/polyfills.js',
+    index: './src/index.js'
   },
-  externals: {
-    lodash: {
-      commonjs: 'lodash',
-      commonjs2: 'lodash',
-      amd: 'lodash',
-      root: '_'
-    }
-  }
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: require.resolve('index.js'),
+        use: 'imports-loader?this=>window'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      join: ['lodash', 'join']
+    })
+  ]
 };
