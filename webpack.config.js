@@ -1,15 +1,26 @@
 const path = require('path');
+const webpack = require('webpack');
 
-module.exports = env => {
-  // Use env.<YOUR VARIABLE> here:
-  console.log('NODE_ENV: ', env.NODE_ENV) // 'local'
-  console.log('Production: ', env.production) // true
-
-  return {
-    entry: './src/index.js',
-    output: {
-      filename: 'bundle.js',
-      path: path.resolve(__dirname, 'dist')
-    }
-  }
-}
+module.exports = {
+  entry: {
+    polyfills: './src/polyfills.js',
+    index: './src/index.js'
+  },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  },
+  module: {
+    rules: [
+      {
+        test: require.resolve('./src/index.js'),
+        use: 'imports-loader?this=>window'
+      }
+    ]
+  },
+  plugins: [
+    new webpack.ProvidePlugin({
+      join: ['lodash', 'join']
+    })
+  ]
+};
