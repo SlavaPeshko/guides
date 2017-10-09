@@ -19,6 +19,9 @@
   },
   "homepage": "https://github.com/SlavaPeshko/webpack-guides#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.77",
+    "ts-loader": "^2.3.7",
+    "typescript": "^2.5.3",
     "webpack": "^3.6.0"
   },
   "dependencies": {
