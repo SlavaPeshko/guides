@@ -1,25 +1,22 @@
 const path = require('path');
 
 module.exports = {
-  entry: {
-    polyfills: './src/polyfills.js',
-    index: './src/index.js'
-  },
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  },
+  entry: './src/index.ts',
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
-        test: require.resolve('index.js'),
-        use: 'imports-loader?this=>window'
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/
       }
     ]
   },
-  plugins: [
-    new webpack.ProvidePlugin({
-      join: ['lodash', 'join']
-    })
-  ]
+  resolve: {
+    extensions: [ ".tsx", ".ts", ".js" ]
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
 };
